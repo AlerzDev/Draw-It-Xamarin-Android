@@ -15,26 +15,9 @@ namespace DrawItXamarinAndroid.CustomViews
         readonly Paint paint = new Paint();
 
         public Color StrokeColor { get; set; } = Color.Black;
-        public float StrokeWidth { get; set; } = 2;
+        public float StrokeWidth { get; set; } = 5;
 
         PolygonLine currentLine;
-
-        //Clear methods
-        public void ClearAll()
-        {
-            completedPolygonLine.Clear();
-            Invalidate();
-        }
-
-        public void ClearOnce()
-        {
-            completedPolygonLine.Remove(currentLine);
-            if (completedPolygonLine.Count > 0)
-                currentLine = completedPolygonLine[completedPolygonLine.Count - 1];
-                
-            Invalidate();
-        }
-
 
         public FingerPainCanvasView(Context context) : base(context)
         {
@@ -49,6 +32,22 @@ namespace DrawItXamarinAndroid.CustomViews
         void Initialize()
         {
             
+        }
+
+        //Clear methods
+        public void ClearAll()
+        {
+            completedPolygonLine.Clear();
+            Invalidate();
+        }
+
+        public void ClearOnce()
+        {
+            completedPolygonLine.Remove(currentLine);
+            if (completedPolygonLine.Count > 0)
+                currentLine = completedPolygonLine[completedPolygonLine.Count - 1];
+
+            Invalidate();
         }
 
         //Overrides
@@ -86,13 +85,14 @@ namespace DrawItXamarinAndroid.CustomViews
                     inProgressPolygoneLine[id].Path.MoveTo(e.GetX(pointerIndex), e.GetY(pointerIndex));
                     completedPolygonLine.Add(inProgressPolygoneLine[id]);
                     inProgressPolygoneLine.Remove(id);
+                    currentLine = inProgressPolygoneLine[id];
                     break;
                 case MotionEventActions.Cancel:
 
                     inProgressPolygoneLine.Remove(id);
                     break;
             }
-
+            Invalidate();
             return true;
         }
 
@@ -101,7 +101,7 @@ namespace DrawItXamarinAndroid.CustomViews
             base.OnDraw(canvas);
             //Set attributes canvas
             paint.SetStyle(Paint.Style.Fill);
-            paint.Color = Color.White;
+            paint.Color = Color.Red;
             canvas.DrawPaint(paint);
             // Draw Stroke
             paint.SetStyle(Paint.Style.Stroke);

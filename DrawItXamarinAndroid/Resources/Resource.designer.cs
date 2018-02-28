@@ -44,8 +44,17 @@ namespace DrawItXamarinAndroid
 		public partial class Id
 		{
 			
+			// aapt resource value: 0x7f050001
+			public const int bottomLinear = 2131034113;
+			
 			// aapt resource value: 0x7f050000
-			public const int myButton = 2131034112;
+			public const int canvasView = 2131034112;
+			
+			// aapt resource value: 0x7f050002
+			public const int clearAllBtn = 2131034114;
+			
+			// aapt resource value: 0x7f050003
+			public const int clearOnceBtn = 2131034115;
 			
 			static Id()
 			{
