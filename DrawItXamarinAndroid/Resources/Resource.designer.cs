@@ -48,7 +48,7 @@ namespace DrawItXamarinAndroid
 			public const int bottomLinear = 2131034113;
 			
 			// aapt resource value: 0x7f050000
-			public const int canvasView = 2131034112;
+			public const int canvas = 2131034112;
 			
 			// aapt resource value: 0x7f050002
 			public const int clearAllBtn = 2131034114;

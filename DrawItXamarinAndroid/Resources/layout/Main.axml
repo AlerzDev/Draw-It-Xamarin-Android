@@ -4,27 +4,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <DrawItXamarinAndroid.CustomViews.FingerPainCanvasView
-        android:id="@+id/canvasView"
+        android:id="@+id/canvas"
+        android:layout_above="@+id/bottomLinear"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/bottomLinear" />
+        android:layout_height="match_parent" />
     <LinearLayout
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
+        android:id="@+id/bottomLinear"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/bottomLinear">
+        android:layout_height="wrap_content">
         <Button
+            android:text="Clear all"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:id="@+id/clearAllBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Clear all" />
+            android:layout_weight="1" />
         <Button
-            android:id="@+id/clearOnceBtn"
+            android:text="Clear once"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Clear Once" />
+            android:id="@+id/clearOnceBtn"
+            android:layout_weight="1" />
     </LinearLayout>
 </RelativeLayout>
