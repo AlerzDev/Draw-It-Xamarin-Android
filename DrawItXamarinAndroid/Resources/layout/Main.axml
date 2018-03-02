@@ -4,10 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <DrawItXamarinAndroid.CustomViews.FingerPainCanvasView
+        android:layout_below="@+id/testImageView"
         android:id="@+id/canvas"
         android:layout_above="@+id/bottomLinear"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+    <ImageView
+        android:id="@+id/testImageView"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
     <LinearLayout
         android:layout_alignParentBottom="true"
         android:id="@+id/bottomLinear"
@@ -24,6 +29,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/clearOnceBtn"
+            android:layout_weight="1" />
+        <Button
+            android:text="Get Bitmap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/getBitmapBtn"
             android:layout_weight="1" />
     </LinearLayout>
 </RelativeLayout>

@@ -23,15 +23,25 @@ namespace DrawItXamarinAndroid.CustomViews
         public FingerPainCanvasView(Context context, IAttributeSet attrs) : base(context, attrs)
         {
             Initialize();
+
         }
 
         void Initialize()
         {
-
+            
         }
+
 
         public Color StrokeColor { get; set; } = Color.Black;
         public float StrokeWidth { get; set; } = 5;
+        public Bitmap GetBitmap () {
+            
+            DrawingCacheEnabled = false;
+            DrawingCacheEnabled = true;
+            BuildDrawingCache(true);
+            Bitmap bitmap = GetDrawingCache(true);
+            return bitmap;
+        }
 
         //Clear methods
         public void ClearAll()
@@ -85,7 +95,6 @@ namespace DrawItXamarinAndroid.CustomViews
                     completedPolygonLine.Add(inProgressPolygoneLine[id]);
                     currentLine = inProgressPolygoneLine[id];
                     inProgressPolygoneLine.Remove(id);
-                    currentLine = inProgressPolygoneLine[id];
                     break;
                 case MotionEventActions.Cancel:
                     inProgressPolygoneLine.Remove(id);
@@ -100,7 +109,7 @@ namespace DrawItXamarinAndroid.CustomViews
             base.OnDraw(canvas);
             //Set attributes canvas
             paint.SetStyle(Paint.Style.Fill);
-            paint.Color = Color.Red;
+            paint.Color = Color.White;
             canvas.DrawPaint(paint);
             // Draw Stroke
             paint.SetStyle(Paint.Style.Stroke);
@@ -110,18 +119,20 @@ namespace DrawItXamarinAndroid.CustomViews
             //Draw the completed polynes
             foreach(PolygonLine line in completedPolygonLine)
             {
-                paint.Color = Color.Red;
-                paint.StrokeWidth = 400;
+                paint.Color = line.Color;
+                paint.StrokeWidth = line.StrokeWidth;
                 canvas.DrawPath(line.Path, paint);
             }
 
             //Draw the in-progress polynes
             foreach (PolygonLine line in inProgressPolygoneLine.Values)
             {
-                paint.Color = Color.Red;
-                paint.StrokeWidth = 400;
+                paint.Color = line.Color;
+                paint.StrokeWidth = line.StrokeWidth;
                 canvas.DrawPath(line.Path, paint);
             }
+
+           
 
         }
 
