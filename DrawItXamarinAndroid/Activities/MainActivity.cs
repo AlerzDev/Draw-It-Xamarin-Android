@@ -25,6 +25,7 @@ namespace DrawItXamarinAndroid
         void InitViews()
         {
             canvas = FindViewById<FingerPainCanvasView>(Resource.Id.canvas);
+            canvas.SetBackground = Resource.Mipmap.Icon;
             clearAllBtn = FindViewById<Button>(Resource.Id.clearAllBtn);
             clearOnceBtn = FindViewById<Button>(Resource.Id.clearOnceBtn);
             getBitmapBtn = FindViewById<Button>(Resource.Id.getBitmapBtn);

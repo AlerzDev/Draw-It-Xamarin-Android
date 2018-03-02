@@ -14,6 +14,9 @@ namespace DrawItXamarinAndroid.CustomViews
         List<PolygonLine> completedPolygonLine = new List<PolygonLine>();
         Paint paint = new Paint();
         PolygonLine currentLine;
+        public Color StrokeColor { get; set; } = Color.Black;
+        public float StrokeWidth { get; set; } = 5;
+        public int? SetBackground { get; set; }
 
         public FingerPainCanvasView(Context context) : base(context)
         {
@@ -31,9 +34,6 @@ namespace DrawItXamarinAndroid.CustomViews
             
         }
 
-
-        public Color StrokeColor { get; set; } = Color.Black;
-        public float StrokeWidth { get; set; } = 5;
         public Bitmap GetBitmap () {
             
             DrawingCacheEnabled = false;
@@ -111,6 +111,12 @@ namespace DrawItXamarinAndroid.CustomViews
             paint.SetStyle(Paint.Style.Fill);
             paint.Color = Color.White;
             canvas.DrawPaint(paint);
+            if(SetBackground != null)
+            {
+                Bitmap bmp = BitmapFactory.DecodeResource(Resources, (int)SetBackground);
+                canvas.DrawBitmap(bmp, 0, 0, null);
+            }
+
             // Draw Stroke
             paint.SetStyle(Paint.Style.Stroke);
             paint.StrokeCap = Paint.Cap.Round;
@@ -131,10 +137,6 @@ namespace DrawItXamarinAndroid.CustomViews
                 paint.StrokeWidth = line.StrokeWidth;
                 canvas.DrawPath(line.Path, paint);
             }
-
-           
-
         }
-
     }
 }
