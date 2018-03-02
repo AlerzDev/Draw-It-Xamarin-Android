@@ -10,14 +10,28 @@ namespace DrawItXamarinAndroid.CustomViews
 {
     public class FingerPainCanvasView : View
     {
-        readonly Dictionary<int, PolygonLine> inProgressPolygoneLine = new Dictionary<int, PolygonLine>();
-        readonly List<PolygonLine> completedPolygonLine = new List<PolygonLine>();
-        readonly Paint paint = new Paint();
+        Dictionary<int, PolygonLine> inProgressPolygoneLine = new Dictionary<int, PolygonLine>();
+        List<PolygonLine> completedPolygonLine = new List<PolygonLine>();
+        Paint paint = new Paint();
+        PolygonLine currentLine;
+
+        public FingerPainCanvasView(Context context) : base(context)
+        {
+            Initialize();
+        }
+
+        public FingerPainCanvasView(Context context, IAttributeSet attrs) : base(context, attrs)
+        {
+            Initialize();
+        }
+
+        void Initialize()
+        {
+
+        }
 
         public Color StrokeColor { get; set; } = Color.Black;
         public float StrokeWidth { get; set; } = 2;
-
-        PolygonLine currentLine;
 
         //Clear methods
         public void ClearAll()
@@ -35,22 +49,6 @@ namespace DrawItXamarinAndroid.CustomViews
             Invalidate();
         }
 
-
-        public FingerPainCanvasView(Context context) : base(context)
-        {
-            Initialize();
-        }
-
-        public FingerPainCanvasView(Context context, IAttributeSet attrs) : base(context, attrs)
-        {
-            Initialize();
-        }
-
-        void Initialize()
-        {
-            
-        }
-
         //Overrides
         public override bool OnTouchEvent(MotionEvent e)
         {
@@ -66,7 +64,7 @@ namespace DrawItXamarinAndroid.CustomViews
                     PolygonLine line = new PolygonLine()
                     {
                         Color = StrokeColor,
-                        StrokeWidht = StrokeWidth
+                        StrokeWidth = StrokeWidth
                     };
 
                     line.Path.MoveTo(e.GetX(pointerIndex), e.GetY(pointerIndex));
@@ -77,7 +75,7 @@ namespace DrawItXamarinAndroid.CustomViews
                     for (pointerIndex = 0; pointerIndex < e.PointerCount; pointerIndex++)
                     {
                         id = e.GetPointerId(pointerIndex);
-                        inProgressPolygoneLine[id].Path.MoveTo(e.GetX(pointerIndex), e.GetY(pointerIndex));
+                        inProgressPolygoneLine[id].Path.LineTo(e.GetX(pointerIndex), e.GetY(pointerIndex));
                     }
                     break;
                 case MotionEventActions.Up:
@@ -85,14 +83,14 @@ namespace DrawItXamarinAndroid.CustomViews
 
                     inProgressPolygoneLine[id].Path.MoveTo(e.GetX(pointerIndex), e.GetY(pointerIndex));
                     completedPolygonLine.Add(inProgressPolygoneLine[id]);
+                    currentLine = inProgressPolygoneLine[id];
                     inProgressPolygoneLine.Remove(id);
                     break;
                 case MotionEventActions.Cancel:
-
                     inProgressPolygoneLine.Remove(id);
                     break;
             }
-
+            Invalidate();
             return true;
         }
 
@@ -111,16 +109,16 @@ namespace DrawItXamarinAndroid.CustomViews
             //Draw the completed polynes
             foreach(PolygonLine line in completedPolygonLine)
             {
-                paint.Color = line.Color;
-                paint.StrokeWidth = line.StrokeWidht;
+                paint.Color = Color.Red;
+                paint.StrokeWidth = 400;
                 canvas.DrawPath(line.Path, paint);
             }
 
             //Draw the in-progress polynes
             foreach (PolygonLine line in inProgressPolygoneLine.Values)
             {
-                paint.Color = line.Color;
-                paint.StrokeWidth = line.StrokeWidht;
+                paint.Color = Color.Red;
+                paint.StrokeWidth = 400;
                 canvas.DrawPath(line.Path, paint);
             }
 

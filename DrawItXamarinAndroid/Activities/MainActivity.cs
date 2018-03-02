@@ -1,13 +1,16 @@
 ﻿using Android.App;
 using Android.Widget;
 using Android.OS;
+using DrawItXamarinAndroid.CustomViews;
 
 namespace DrawItXamarinAndroid
 {
     [Activity(Label = "Draw It Xamarin Android", MainLauncher = true, Icon = "@mipmap/icon")]
     public class MainActivity : Activity
     {
-        int count = 1;
+        FingerPainCanvasView canvas;
+        Button clearAllBtn;
+        Button clearOnceBtn;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -15,12 +18,13 @@ namespace DrawItXamarinAndroid
 
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
+            canvas = FindViewById<FingerPainCanvasView>(Resource.Id.canvas);
+            clearAllBtn = FindViewById<Button>(Resource.Id.clearAllBtn);
+            clearOnceBtn = FindViewById<Button>(Resource.Id.clearOnceBtn);
 
-            // Get our button from the layout resource,
-            // and attach an event to it
-            Button button = FindViewById<Button>(Resource.Id.myButton);
+            clearAllBtn.Click += (sender, e) => canvas.ClearAll();
+            clearOnceBtn.Click += (sender, e) => canvas.ClearOnce();
 
-            button.Click += delegate { button.Text = $"{count++} clicks!"; };
         }
     }
 }

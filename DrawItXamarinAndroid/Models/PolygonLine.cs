@@ -9,7 +9,7 @@ namespace DrawItXamarinAndroid.Models
             Path = new Path();
         }
         public Color Color { get; set; }
-        public float StrokeWidht { get; set; }
-        public Path Path { get; set; }
+        public float StrokeWidth { get; set; }
+        public Path Path { get; private set; }
     }
 }
